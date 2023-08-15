@@ -1,4 +1,4 @@
-from Tarafa import Tarefa
+from Tarefa import Tarefa
 from datetime import date
 
 class Projeto():
@@ -9,7 +9,7 @@ class Projeto():
         self.data_ini = data_ini
         self.data_fim = data_fim
         self.supervisor = None
-        self.funcionarios = mybd.trazerfuncionarideproejeton(cod)
+        self.funcionarios = mybd.trazerFuncionariodeProjeto(cod)
         self.tarefas = [Tarefa(i[0],i[1],i[2],i[3],i[4],i[5]) for i in mybd.trazerTarefas(cod)] if mybd.trazerTarefas(cod) else []
 
     def __str__(self):
@@ -35,7 +35,7 @@ class Projeto():
 
         return info
 
-    def upadate(self, Mybd, valor, newvalor):
+    def update(self, Mybd, valor, newvalor):
         try:
             Mybd.update('funcionario', valor, newvalor, 'idprojeto', self.cod)
             return 1
@@ -51,7 +51,7 @@ class Projeto():
         return self.nome
 
     def set_nome(self, Mybd,nome):
-        self.upadate(Mybd,'nome',nome)
+        self.update(Mybd,'nome',nome)
         self.nome = nome
 
     @property
@@ -59,7 +59,7 @@ class Projeto():
         return self.desc
 
     def set_desc(self, Mybd, desc):
-        self.upadate(Mybd, 'desc', desc)
+        self.update(Mybd, 'desc', desc)
         self.desc = desc
 
     @property
@@ -67,7 +67,7 @@ class Projeto():
         return self.data_ini
 
     def set_data_ini(self, Mybd, data_ini):
-        self.upadate(Mybd, 'data_ini', data_ini)
+        self.update(Mybd, 'data_ini', data_ini)
         self.data_ini = data_ini
 
     @property

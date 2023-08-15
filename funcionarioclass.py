@@ -42,7 +42,7 @@ class Funcionario():
             projt += f'{i}' + '\n'
         return projt
     # sets
-    def upadate(self,Mybd,valor,newvalor):
+    def update(self,Mybd,valor,newvalor):
         try:
             Mybd.update('funcionario',valor,newvalor,'RGA',self.rga)
             return 1
@@ -50,16 +50,16 @@ class Funcionario():
             return 0
 
     def set_story_p(self,Mybd,story_p):
-        self.upadate(Mybd,'story_p',story_p)
+        self.update(Mybd,'story_p',story_p)
         self.story_p = story_p
 
     def set_funcao(self,mybd,func):
-        self.upadate(mybd,'funcao',func)
+        self.update(mybd,'funcao',func)
         self.funcao = func
 
     def add_projeto(self,mydb,codproj):
         try:
-            nproj = mydb.selct('projeto','idprojeto',codproj)
+            nproj = mydb.select('projeto','idprojeto',codproj)
 
             if nproj:
                 sql = f"""INSERT INTO trabalha_em VALUES ({self.rga},{codproj}); """

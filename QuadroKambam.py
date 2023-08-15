@@ -1,8 +1,10 @@
+from kambanclass import KambamBD as mybd
+from projeto import Projeto
 
 class QuadroKanban :
-    def __init__(self):
-        self.__projetos = []
-        self.__status = []
+    def __init__(self, cod):
+        self.projetos = [Projeto(i[0],i[1],i[2],i[3],i[4],i[5],i[6],i[7]) for i in mybd.trazerProjetos(cod)] if mybd.trazerProjetos(cod) else []
+       
 
     def __str__(self):
         texto = ""

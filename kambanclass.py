@@ -4,20 +4,20 @@ import mysql.connector
 class KambamBD:
 
     def __init__(self):
-        # Depois de conectar na nuvem ele vai ta funcinal
+        # Depois de conectar na nuvem ele estará funcional
         self.con = mysql.connector.connect(
             host='localhost',
             database='gerencia_de_projetos',
             user='root',
             password='12347'
         )
-        # verifica se conectou
+        # Verifica se conectou
         if self.con.is_connected():
             print("CONECTED")
         # Deixa um cursor sempre setado
         self.curse = self.con.cursor()
 
-    def adicinar(self, table, *args):
+    def adicionar(self, table, *args):
         try:
             sql = f"INSERT INTO {table} VALUES {tuple(args)};"
             self.curse.execute(sql)
@@ -33,7 +33,7 @@ class KambamBD:
         except Exception as e:
             print(e)
 
-    def selct(self,table,id,idref):
+    def select(self,table,id,idref):
         try:
             sql = f"SELECT * FROM {table} WHERE {id} = {idref};"
             self.curse.execute(sql)
@@ -72,9 +72,25 @@ class KambamBD:
             return linhas
         except:
             return 0
+        
+    def trazerStatus(self,codproj):
+        try:
+            self.curse.execute(f"""
+            select
+              t.idtarefa,t.nome,t.desc,t.prazo,t.time,e.nome
+            from
+              tarefa as t,
+              etapa as e
+            where
+              t.idproj= {codproj} and t.etapa_cod_e = e.cod_e;
+            """)
+            linhas = self.curse.fetchall()
+            return linhas
+        except:
+            return 0
 
 
-    def trazerfuncionarideproejeton(self,codproj):
+    def trazerFuncionariodeProjeto(self,codproj):
         try:
             self.curse.execute(f"""
                 select distinct
